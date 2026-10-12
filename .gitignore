@@ -1,0 +1,38 @@
+# .NET / C#
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+_ReSharper*/
+*.DotSettings.user
+app_data/Logs/
+App_Data/Logs/
+**/App_Data/Logs/
+**/logs/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Flutter / Dart
+bai_kt/.dart_tool/
+bai_kt/.flutter-plugins
+bai_kt/.flutter-plugins-dependencies
+bai_kt/build/
+bai_kt/.packages
+bai_kt/.pub-cache/
+bai_kt/.pub/
+
+# VS Code / IDE
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.swp
+*.lock

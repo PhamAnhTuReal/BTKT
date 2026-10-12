@@ -1,0 +1,118 @@
+@using PAT.MyProject.Web.Startup
+@model IReadOnlyList<PAT.MyProject.Web.Controllers.ToeicExamListItem>
+@{
+    ViewBag.Title = "Đề thi TOEIC";
+    ViewBag.CurrentPageName = PageNames.ToeicExams;
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <h1>Quản lý đề thi TOEIC</h1>
+    </div>
+</section>
+
+<section class="content admin-dashboard">
+    <div class="container-fluid">
+        @if (TempData["ToeicExamSuccess"] is string success)
+        {
+            <div class="alert alert-success" role="status">@success</div>
+        }
+        @if (TempData["ToeicExamError"] is string error)
+        {
+            <div class="alert alert-danger" role="alert">@error</div>
+        }
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Tải đề mới</h3>
+            </div>
+            <form asp-controller="ToeicExam" asp-action="Import" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <div class="card-body">
+                    <p class="text-muted">
+                        Chọn tệp Word .docx có cấu trúc thẻ TOEIC Reading (Part 5–7, câu 101–200).
+                        Đề mới sẽ được phát hành cho ứng dụng và tự thay thế đề đang phát hành.
+                    </p>
+                    <div class="form-group">
+                        <label for="file">Tệp đề thi (.docx, tối đa 20 MB)</label>
+                        <input id="file" name="file" type="file" class="form-control-file"
+                               accept=".docx" required />
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-upload mr-1" aria-hidden="true"></i>
+                        Tải lên và phát hành
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Các đề đã tải</h3>
+            </div>
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap mb-0">
+                    <thead>
+                        <tr>
+                            <th>Tên đề</th>
+                            <th>Số câu</th>
+                            <th>Thời gian</th>
+                            <th>Trạng thái</th>
+                            <th>Ngày tải</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="6" class="text-center text-muted py-4">
+                                    Chưa có đề thi nào. Tải tệp DOCX để bắt đầu.
+                                </td>
+                            </tr>
+                        }
+                        @foreach (var exam in Model)
+                        {
+                            <tr>
+                                <td>@exam.Name</td>
+                                <td>@exam.TotalQuestions</td>
+                                <td>@exam.DurationMinutes phút</td>
+                                <td>
+                                    @if (exam.IsPublished)
+                                    {
+                                        <span class="badge badge-success">Đang phát hành</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-secondary">Đã thay thế</span>
+                                    }
+                                </td>
+                                <td>@exam.CreationTime.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td>
+                                    <div class="d-inline-flex align-items-center">
+                                        <a class="btn btn-sm btn-outline-primary mr-2"
+                                           asp-controller="ToeicExam" asp-action="Edit" asp-route-id="@exam.Id">
+                                            <i class="fas fa-edit mr-1" aria-hidden="true"></i>
+                                            Chỉnh sửa
+                                        </a>
+                                        <form asp-controller="ToeicExam" asp-action="Delete" asp-route-id="@exam.Id" method="post"
+                                              class="d-inline"
+                                              onsubmit="return confirm('Bạn có chắc chắn muốn xóa đề thi “@Html.Raw(Html.Encode(exam.Name))” không?');">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                <i class="fas fa-trash-alt mr-1" aria-hidden="true"></i>
+                                                Xóa
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

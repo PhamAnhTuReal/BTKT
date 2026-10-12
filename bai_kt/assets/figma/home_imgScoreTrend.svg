@@ -1,0 +1,16 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="206" height="42" viewBox="0 0 206 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Score trend" clip-path="url(#clip0_0_21)">
+<circle id="Latest score" cx="200" cy="5" r="3" fill="#3E50D5" stroke="white" stroke-width="2"/>
+<line id="Trend line" x1="145.061" y1="11.5858" x2="198.586" y2="3.93934" stroke="#3E50D5" stroke-width="2.5" stroke-linecap="round"/>
+<line id="Trend line_2" x1="95.8003" y1="27.4237" x2="142.424" y2="12.1997" stroke="#3E50D5" stroke-width="2.5" stroke-linecap="round"/>
+<line id="Trend line_3" x1="49.3515" y1="23.8605" x2="93.8605" y2="27.6485" stroke="#3E50D5" stroke-width="2.5" stroke-linecap="round"/>
+<line id="Trend line_4" x1="2.98673" y1="32.5332" x2="46.5332" y2="24.0133" stroke="#3E50D5" stroke-width="2.5" stroke-linecap="round"/>
+<path id="Trend area" d="M2 38.1429L49.8586 27.8571L98.7576 32.4286L149.737 14.1429L208 5V45H2V38.1429Z" fill="#EEF0FF"/>
+<rect id="Chart baseline" y="38" width="206" height="1" fill="#E5E8EE"/>
+</g>
+<defs>
+<clipPath id="clip0_0_21">
+<rect width="206" height="42" fill="white"/>
+</clipPath>
+</defs>
+</svg>

@@ -1,0 +1,16 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Status symbol" clip-path="url(#clip0_0_8)">
+<circle id="Status circle" cx="7" cy="7" r="6.4" fill="white" stroke="#C87925" stroke-width="1.2"/>
+<g id="flag" clip-path="url(#clip1_0_8)">
+<path id="Vector" d="M4.3336 10.3336V4.33312C4.3336 4.28137 4.34565 4.23033 4.36879 4.18404C4.39193 4.13775 4.42553 4.09748 4.46692 4.06643C4.81308 3.80677 5.2341 3.6664 5.6668 3.6664C6.6667 3.6664 7.3333 4.33312 8.11089 4.33312C8.55529 4.33312 8.89603 4.24422 9.13312 4.06643C9.18264 4.02929 9.24152 4.00667 9.30317 4.00111C9.36482 3.99555 9.42679 4.00727 9.48216 4.03495C9.53752 4.06264 9.58408 4.1052 9.61662 4.15786C9.64916 4.21053 9.6664 4.27121 9.6664 4.33312V7.66672C9.6664 7.71847 9.65435 7.76951 9.63121 7.8158C9.60807 7.86209 9.57447 7.90236 9.53308 7.93341C9.18692 8.19307 8.7659 8.33344 8.3332 8.33344C7.3333 8.33344 6.6667 7.66672 5.6668 7.66672C5.17489 7.66673 4.70024 7.84808 4.3336 8.17609" stroke="#C87925" stroke-width="1.2" stroke-linecap="round"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_0_8">
+<rect width="14" height="14" fill="white"/>
+</clipPath>
+<clipPath id="clip1_0_8">
+<rect width="8" height="8" fill="white" transform="translate(3 3)"/>
+</clipPath>
+</defs>
+</svg>

@@ -1,0 +1,134 @@
+@model PAT.MyProject.Web.Controllers.ToeicExamEditModel
+@{
+    ViewBag.Title = "Chỉnh sửa đề TOEIC";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <h1>Chỉnh sửa đề TOEIC</h1>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <form asp-controller="ToeicExam" asp-action="Edit" method="post">
+            @Html.AntiForgeryToken()
+            <input asp-for="Id" type="hidden" />
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Thông tin đề</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="Name">Tên đề</label>
+                        <input asp-for="Name" class="form-control" maxlength="200" required />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DurationMinutes">Thời gian (phút)</label>
+                        <input asp-for="DurationMinutes" class="form-control" type="number" min="1" max="600" required />
+                        <span asp-validation-for="DurationMinutes" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-0">
+                        <label asp-for="Instructions">Hướng dẫn</label>
+                        <textarea asp-for="Instructions" class="form-control" rows="2"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            @for (var partIndex = 0; partIndex < Model.Parts.Count; partIndex++)
+            {
+                var part = Model.Parts[partIndex];
+                <input asp-for="Parts[partIndex].Id" type="hidden" />
+                <input asp-for="Parts[partIndex].PartNumber" type="hidden" />
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Part @part.PartNumber</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label asp-for="Parts[partIndex].Directions">Hướng dẫn phần thi</label>
+                            <textarea asp-for="Parts[partIndex].Directions" class="form-control" rows="2"></textarea>
+                        </div>
+
+                        @for (var groupIndex = 0; groupIndex < part.Groups.Count; groupIndex++)
+                        {
+                            var group = part.Groups[groupIndex];
+                            <input asp-for="Parts[partIndex].Groups[groupIndex].Id" type="hidden" />
+                            <input asp-for="Parts[partIndex].Groups[groupIndex].FromNumber" type="hidden" />
+                            <input asp-for="Parts[partIndex].Groups[groupIndex].ToNumber" type="hidden" />
+                            <div class="border rounded p-3 mb-3">
+                                <h5>Nhóm câu @group.FromNumber–@group.ToNumber</h5>
+                                <div class="form-group">
+                                    <label asp-for="Parts[partIndex].Groups[groupIndex].Title">Tiêu đề đoạn đọc</label>
+                                    <input asp-for="Parts[partIndex].Groups[groupIndex].Title" class="form-control" />
+                                </div>
+                                @for (var passageIndex = 0; passageIndex < group.Passages.Count; passageIndex++)
+                                {
+                                    <input asp-for="Parts[partIndex].Groups[groupIndex].Passages[passageIndex].Id" type="hidden" />
+                                    <div class="form-group mb-0">
+                                        <label>Đoạn văn @(@passageIndex + 1)</label>
+                                        <textarea asp-for="Parts[partIndex].Groups[groupIndex].Passages[passageIndex].Content"
+                                                  class="form-control" rows="6"></textarea>
+                                    </div>
+                                }
+                            </div>
+                        }
+
+                        @for (var questionIndex = 0; questionIndex < part.Questions.Count; questionIndex++)
+                        {
+                            var question = part.Questions[questionIndex];
+                            <details class="border rounded p-3 mb-2">
+                                <summary class="font-weight-bold">Câu @question.Number</summary>
+                                <input asp-for="Parts[partIndex].Questions[questionIndex].Id" type="hidden" />
+                                <input asp-for="Parts[partIndex].Questions[questionIndex].Number" type="hidden" />
+                                <div class="form-group mt-3">
+                                    <label>Nội dung câu hỏi</label>
+                                    <textarea asp-for="Parts[partIndex].Questions[questionIndex].Content"
+                                              class="form-control" rows="3" required></textarea>
+                                    <span asp-validation-for="Parts[partIndex].Questions[questionIndex].Content"
+                                          class="text-danger"></span>
+                                </div>
+                                @for (var optionIndex = 0; optionIndex < question.Options.Count; optionIndex++)
+                                {
+                                    var option = question.Options[optionIndex];
+                                    <input asp-for="Parts[partIndex].Questions[questionIndex].Options[optionIndex].Id" type="hidden" />
+                                    <input asp-for="Parts[partIndex].Questions[questionIndex].Options[optionIndex].Label" type="hidden" />
+                                    <div class="form-group">
+                                        <label>Đáp án @option.Label</label>
+                                        <input asp-for="Parts[partIndex].Questions[questionIndex].Options[optionIndex].Content"
+                                               class="form-control" maxlength="1000" required />
+                                        <span asp-validation-for="Parts[partIndex].Questions[questionIndex].Options[optionIndex].Content"
+                                              class="text-danger"></span>
+                                    </div>
+                                }
+                                <div class="form-group mb-0">
+                                    <label>Đáp án đúng</label>
+                                    <select asp-for="Parts[partIndex].Questions[questionIndex].CorrectAnswer"
+                                            class="form-control" required>
+                                        @foreach (var label in new[] { "A", "B", "C", "D" })
+                                        {
+                                            <option value="@label">@label</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="Parts[partIndex].Questions[questionIndex].CorrectAnswer"
+                                          class="text-danger"></span>
+                                </div>
+                            </details>
+                        }
+                    </div>
+                </div>
+            }
+
+            <div class="mb-4">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save mr-1" aria-hidden="true"></i>
+                    Lưu thay đổi
+                </button>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-default ml-2">Hủy</a>
+            </div>
+        </form>
+    </div>
+</section>
